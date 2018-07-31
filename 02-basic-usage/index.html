@@ -103,37 +103,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="basic-usage">Basic Usage</h2>
 <p>Consider the following toy application, <code>main.cpp</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&quot;argo/Argo.hpp&quot;</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">using</span> <span class="kw">namespace</span> argo;</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="dt">void</span> count(<span class="dt">unsigned</span> <span class="dt">int</span> max)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">{</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="cf">for</span> (<span class="dt">unsigned</span> <span class="dt">int</span> idx = <span class="dv">1u</span>; idx &lt;= max; ++idx) <span class="bu">std::</span>cout &lt;&lt; idx &lt;&lt; <span class="st">&quot; &quot;</span>;</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl;</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> **argv)</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">{</a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">    <span class="dt">unsigned</span> <span class="dt">int</span> max;</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">    </a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">    Arguments args;</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">    handler::Option option{<span class="st">&quot;--number&quot;</span>};</a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">    option.help(<span class="st">&quot;Numbers to count&quot;</span>);</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">    option.required().action(action::store(max));</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">    args.add(option);</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">    <span class="at">const</span> <span class="kw">auto</span> result = args.parse(argc, argv);</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">    <span class="cf">if</span> (!result.success)</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23">    {</a>
-<a class="sourceLine" id="cb1-24" data-line-number="24">        <span class="bu">std::</span>cerr &lt;&lt; <span class="st">&quot;Error: &quot;</span> &lt;&lt; result.message &lt;&lt; <span class="bu">std::</span>endl;</a>
-<a class="sourceLine" id="cb1-25" data-line-number="25">        <span class="cf">return</span> <span class="dv">1</span>;</a>
-<a class="sourceLine" id="cb1-26" data-line-number="26">    }</a>
-<a class="sourceLine" id="cb1-27" data-line-number="27">    <span class="cf">else</span></a>
-<a class="sourceLine" id="cb1-28" data-line-number="28">    {</a>
-<a class="sourceLine" id="cb1-29" data-line-number="29">        count(max);</a>
-<a class="sourceLine" id="cb1-30" data-line-number="30">    }</a>
-<a class="sourceLine" id="cb1-31" data-line-number="31">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb1-32" data-line-number="32">}</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">using</span> <span class="kw">namespace</span> argo;</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="dt">void</span> count(<span class="dt">unsigned</span> <span class="dt">int</span> max)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">{</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="cf">for</span> (<span class="dt">unsigned</span> <span class="dt">int</span> idx = <span class="dv">1u</span>; idx &lt;= max; ++idx) <span class="bu">std::</span>cout &lt;&lt; idx &lt;&lt; <span class="st">&quot; &quot;</span>;</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">    <span class="bu">std::</span>cout &lt;&lt; <span class="bu">std::</span>endl;</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span> **argv)</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">{</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">    <span class="dt">unsigned</span> <span class="dt">int</span> max;</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">    </a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">    Arguments args;</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">    handler::Option option{<span class="st">&quot;--number&quot;</span>};</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">    option.help(<span class="st">&quot;Numbers to count&quot;</span>);</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">    option.required().action(action::store(max));</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">    <span class="at">const</span> <span class="kw">auto</span> is_ok = args.add(option);</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">    assert(is_ok);</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">    <span class="at">const</span> <span class="kw">auto</span> result = args.parse(argc, argv);</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">    <span class="cf">if</span> (!result.success)</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">    {</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">        <span class="bu">std::</span>cerr &lt;&lt; <span class="st">&quot;Error: &quot;</span> &lt;&lt; result.message &lt;&lt; <span class="bu">std::</span>endl;</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">        <span class="cf">return</span> <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28">    }</a>
+<a class="sourceLine" id="cb1-29" data-line-number="29">    <span class="cf">else</span></a>
+<a class="sourceLine" id="cb1-30" data-line-number="30">    {</a>
+<a class="sourceLine" id="cb1-31" data-line-number="31">        count(max);</a>
+<a class="sourceLine" id="cb1-32" data-line-number="32">    }</a>
+<a class="sourceLine" id="cb1-33" data-line-number="33">    <span class="cf">return</span> <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-34" data-line-number="34">}</a></code></pre></div>
 <p>We compile this file making sure (at least) C++11 is enabled. For example, on macOS or Linux with Clang or GCC:</p>
 <pre><code>c++ -std=c++11 -I&lt;path/to/Argo&gt;/single_include main.cpp -o main</code></pre>
 <p>Let’s go over this code.</p>
@@ -145,8 +147,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that we also added a description that will show up in the <code>--help</code> of our application.</p>
 <p>Handlers are also configured step-by-step. In fact, the steps can be chained together:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb5-1" data-line-number="1">option.required().action(action::store(max));</a></code></pre></div>
-<p>Here we have marked the option as required (by default, all arguments are optional), and attached an action to it as well.</p>
-<p>This is a good point at which to introduce the basic principle: when parsing command line arguments, an <code>Arguments</code> object checks which of its option handlers (<code>handler::IHandler</code>) recognizes the option. Every handler that triggers on an argument can trigger one or more actions. These actions are run <em>during</em> the parsing process. In contrast to other frameworks, the arguments are <em>not</em> collected into some variant type object. Instead, the user can immediately decide on the action that is to take place. There are several built-in actions available for convenience, but in principle, any action can be taken. Here, <code>action::store</code> is used: which stores the value of the option in the passed reference <code>max</code>. Note that the action automatically takes care of converting the string value (all command line arguments are strings) to the appropriate type.</p>
+<p>Here we have marked the option as required. By default, all arguments are optional. Furthermore, we have attached an action to it as well by chaining the <code>.action</code> call to the result of the <code>.required</code> call.</p>
+<p>This is a good point at which to introduce Argo’s design: when parsing command line arguments, an <code>Arguments</code> object checks which of its option handlers (<code>handler::IHandler</code>) recognizes the option. Every handler that triggers on an argument can trigger one or more actions. These <strong>actions are run during the parsing process</strong>. In contrast to other frameworks, the <strong>arguments are not collected into a variant type</strong> object. Instead, the user can immediately decide on the action that is to take place. There are several built-in actions available for convenience, but in principle, any action can be taken. Here, <code>action::store</code> is used to store the value of the option in the passed reference <code>max</code>. Note that the action automatically takes care of converting the string value (all command line arguments are strings) to the appropriate type.</p>
+<p>With our handler fully configured, we can add it to the <code>Arguments</code> instance:</p>
+<pre><code>const auto is_ok = args.add(option);
+assert(is_ok);</code></pre>
 	    </div>
 	    	    <div class="col-md-3">
 	      <nav id="toc" data-spy="affix" data-offset-top="0">
