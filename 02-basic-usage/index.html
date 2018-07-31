@@ -99,8 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="container">
       	<div class="row">
 	    <div class="col-md-9">
-		<h1 id="tutorial">Tutorial</h1>
-<h2 id="basic-usage">Basic Usage</h2>
+		<h1 id="basic-usage">Basic Usage</h1>
 <p>Consider the following toy application, <code>main.cpp</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#include </span><span class="im">&quot;argo/Argo.hpp&quot;</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></a>
@@ -136,12 +135,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-32" data-line-number="32">    }</a>
 <a class="sourceLine" id="cb1-33" data-line-number="33">    <span class="cf">return</span> <span class="dv">0</span>;</a>
 <a class="sourceLine" id="cb1-34" data-line-number="34">}</a></code></pre></div>
+<h2 id="compilation">Compilation</h2>
 <p>We compile this file making sure (at least) C++11 is enabled. For example, on macOS or Linux with Clang or GCC:</p>
 <pre><code>c++ -std=c++11 -I&lt;path/to/Argo&gt;/single_include main.cpp -o main</code></pre>
-<p>Let’s go over this code.</p>
+<h2 id="creating-an-arguments-parser">Creating an <code>Arguments</code> parser</h2>
 <p>We start by creating an <code>Arguments</code> object <code>args</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1">Arguments args;</a></code></pre></div>
-<p>This object will be configured step-by-step so that it has enough information to parse the command line options. This configuration is done by adding <code>handler::IHandler</code> objects. In this case, we create a <code>handler::Option</code> to handle the <code>--number</code> option:</p>
+<p>This object will be configured step-by-step so that it has enough information to parse the command line options. This configuration is done by adding <code>handler::IHandler</code> objects.</p>
+<h2 id="adding-option-handlers">Adding option handlers</h2>
+<p>In this case, we create a <code>handler::Option</code> to handle the <code>--number</code> option:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" data-line-number="1">handler::Option option{<span class="st">&quot;--number&quot;</span>}</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">option.help(<span class="st">&quot;Numbers to count&quot;</span>);</a></code></pre></div>
 <p>Note that we also added a description that will show up in the <code>--help</code> of our application.</p>
@@ -153,6 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="at">const</span> <span class="kw">auto</span> is_ok = args.add(option);</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">assert(is_ok);</a></code></pre></div>
 <p>Note that <code>args.add</code> actually returns a <code>bool</code>, indicating whether the option is properly configured. This is because conflicts are possible (e.g., adding the same option twice). Good practice will have us assert on this.</p>
+<h2 id="parsing-command-line-arguments">Parsing command line arguments</h2>
 <p>We’re now ready to invoke the actual parsing of the command line arguments:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="at">const</span> <span class="kw">auto</span> result = args.parse(argc, argv);</a></code></pre></div>
 	    </div>
@@ -160,8 +163,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 	      <nav id="toc" data-spy="affix" data-offset-top="0">
 		
 		<ul>
-<li><a href="#tutorial">Tutorial</a><ul>
-<li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#basic-usage">Basic Usage</a><ul>
+<li><a href="#compilation">Compilation</a></li>
+<li><a href="#creating-an-arguments-parser">Creating an <code>Arguments</code> parser</a></li>
+<li><a href="#adding-option-handlers">Adding option handlers</a></li>
+<li><a href="#parsing-command-line-arguments">Parsing command line arguments</a></li>
 </ul></li>
 </ul>
 	      </nav>
