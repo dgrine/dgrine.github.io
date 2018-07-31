@@ -155,9 +155,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="at">const</span> <span class="kw">auto</span> is_ok = args.add(option);</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">assert(is_ok);</a></code></pre></div>
 <p>Note that <code>args.add</code> actually returns a <code>bool</code>, indicating whether the option is properly configured. This is because conflicts are possible (e.g., adding the same option twice). Good practice will have us assert on this.</p>
-<h2 id="parsing-command-line-arguments">Parsing command line arguments</h2>
+<h2 id="parsing-arguments">Parsing arguments</h2>
 <p>We’re now ready to invoke the actual parsing of the command line arguments:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="at">const</span> <span class="kw">auto</span> result = args.parse(argc, argv);</a></code></pre></div>
+<p>Since actions are run during the parsing process, we only need to inspect the <code>result</code> variable which contains the <code>success</code> boolean and a <code>message</code> string which - in case the call failed - contains an error description:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="cf">if</span> (!result.success)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">{</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="bu">std::</span>cerr &lt;&lt; <span class="st">&quot;Error: &quot;</span> &lt;&lt; result.message &lt;&lt; <span class="bu">std::</span>endl;</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">    <span class="cf">return</span> <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="cf">else</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">{</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">    count(max);</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">}</a></code></pre></div>
 	    </div>
 	    	    <div class="col-md-3">
 	      <nav id="toc" data-spy="affix" data-offset-top="0">
@@ -167,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#compilation">Compilation</a></li>
 <li><a href="#creating-a-parser">Creating a parser</a></li>
 <li><a href="#adding-option-handlers">Adding option handlers</a></li>
-<li><a href="#parsing-command-line-arguments">Parsing command line arguments</a></li>
+<li><a href="#parsing-arguments">Parsing arguments</a></li>
 </ul></li>
 </ul>
 	      </nav>
