@@ -14,7 +14,7 @@ def publish(context):
         print("Running pdsite")
         context.run('pdsite build')
 
-@task
+@task(pre = [publish])
 def push(context, message = "Documentation updated."):
     """
     Pushes the documentation.
