@@ -117,7 +117,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-14" data-line-number="14">{</a>
 <a class="sourceLine" id="cb1-15" data-line-number="15">    <span class="dt">unsigned</span> <span class="dt">int</span> max;</a>
 <a class="sourceLine" id="cb1-16" data-line-number="16">    </a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">    Arguments args;</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">    Arguments args{};</a>
 <a class="sourceLine" id="cb1-18" data-line-number="18">    handler::Option option{<span class="st">&quot;--number&quot;</span>};</a>
 <a class="sourceLine" id="cb1-19" data-line-number="19">    option.help(<span class="st">&quot;Numbers to count&quot;</span>);</a>
 <a class="sourceLine" id="cb1-20" data-line-number="20">    option.required().action(action::store(max));</a>
@@ -138,9 +138,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="compilation">Compilation</h2>
 <p>We compile this file making sure (at least) C++11 is enabled. For example, on macOS or Linux with Clang or GCC:</p>
 <pre><code>c++ -std=c++11 -I&lt;path/to/Argo&gt;/single_include main.cpp -o main</code></pre>
-<h2 id="creating-an-arguments-parser">Creating an <code>Arguments</code> parser</h2>
-<p>We start by creating an <code>Arguments</code> object <code>args</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1">Arguments args;</a></code></pre></div>
+<h2 id="creating-a-parser">Creating a parser</h2>
+<p>We start by creating an <code>Arguments</code> object:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1">Arguments args{};</a></code></pre></div>
 <p>This object will be configured step-by-step so that it has enough information to parse the command line options. This configuration is done by adding <code>handler::IHandler</code> objects.</p>
 <h2 id="adding-option-handlers">Adding option handlers</h2>
 <p>In this case, we create a <code>handler::Option</code> to handle the <code>--number</code> option:</p>
@@ -165,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 		<ul>
 <li><a href="#basic-usage">Basic Usage</a><ul>
 <li><a href="#compilation">Compilation</a></li>
-<li><a href="#creating-an-arguments-parser">Creating an <code>Arguments</code> parser</a></li>
+<li><a href="#creating-a-parser">Creating a parser</a></li>
 <li><a href="#adding-option-handlers">Adding option handlers</a></li>
 <li><a href="#parsing-command-line-arguments">Parsing command line arguments</a></li>
 </ul></li>
