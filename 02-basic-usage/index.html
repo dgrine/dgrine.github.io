@@ -152,6 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>With our handler fully configured, we can add it to the <code>Arguments</code> instance:</p>
 <pre><code>const auto is_ok = args.add(option);
 assert(is_ok);</code></pre>
+<p>Note that <code>args.add</code> actually returns a boolean, indicating whether the option is properly configured. This is because conflicts are possible (e.g., adding the same option twice). Good practice will have us assert on this.</p>
 	    </div>
 	    	    <div class="col-md-3">
 	      <nav id="toc" data-spy="affix" data-offset-top="0">
