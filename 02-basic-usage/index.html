@@ -152,7 +152,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>With our handler fully configured, we can add it to the <code>Arguments</code> instance:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="at">const</span> <span class="kw">auto</span> is_ok = args.add(option);</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">assert(is_ok);</a></code></pre></div>
-<p>Note that <code>args.add</code> actually returns a boolean, indicating whether the option is properly configured. This is because conflicts are possible (e.g., adding the same option twice). Good practice will have us assert on this.</p>
+<p>Note that <code>args.add</code> actually returns a <code>bool</code>, indicating whether the option is properly configured. This is because conflicts are possible (e.g., adding the same option twice). Good practice will have us assert on this.</p>
+<p>We’re now ready to invoke the actual parsing of the command line arguments:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="at">const</span> <span class="kw">auto</span> result = args.parse(argc, argv);</a></code></pre></div>
 	    </div>
 	    	    <div class="col-md-3">
 	      <nav id="toc" data-spy="affix" data-offset-top="0">
