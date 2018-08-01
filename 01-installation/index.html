@@ -91,6 +91,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <ul class="nav navbar-nav">
 	    	    	    <li><a href="">Installation</a></li>
 	    	  	    	    <li><a href="/02-basic-usage">Basic Usage</a></li>
+	    	  	    	    <li><a href="/03-api">Api</a></li>
+	    	  	    	    <li><a href="/10-license">License</a></li>
 	    	            </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -100,17 +102,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       	<div class="row">
 	    <div class="col-md-9">
 		<h1 id="installation">Installation</h1>
-<p>Since Argo consists of just a single header file without any external dependencies, <strong>no building or installation is required</strong>. Simply make the header file available to your project.</p>
+<p>Argo consists of just a single header file without any external dependencies, <strong>no building or installation is required</strong>. Simply make the header file available to your project.</p>
 <h2 id="basic-integration">Basic integration</h2>
-<p>Clone the repository</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">git</span> clone https://github.com/dgrine/Argo.git</a></code></pre></div>
+<p>Clone the repository:</p>
+<pre><code>git clone https://github.com/dgrine/Argo.git</code></pre>
 <p>Alternatively, you can <a href="...">download the latest archive</a> directly.</p>
-<p>Next, add the <code>Argo/single_include</code> directory as an include directory to your compiler flags.</p>
+<p>Next, add the <code>Argo/single_include</code> directory as an include directory to your compiler flags when compiling. For example, with Clang or GCC simply add the <code>-I&lt;/path/to/Argo&gt;/single_include</code> flag.</p>
 <p>That’s it! You can now include Argo in your C++ projects:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="pp">#include </span><span class="im">&quot;argo/Argo.hpp&quot;</span></a></code></pre></div>
 <h2 id="cmake-integration">CMake integration</h2>
 <h4 id="using-git-submodules">Using Git submodules</h4>
-<p>When the the Argo repository is included in your project, it suffices to add the Argo subdirectory in your <code>CMakeLists.txt</code>:</p>
+<p>If your project makes use of Git submodules, you can simply add the Argo repository as a subdirectory in your <code>CMakeLists.txt</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cmake"><code class="sourceCode cmake"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">add_subdirectory</span>(argo)</a></code></pre></div>
 <p>This will create the target <code>Argo</code> as an <code>interface</code> library.</p>
 <p>That’s it! You can now link your targets against <code>Argo</code>:</p>
@@ -140,6 +142,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb5-20" data-line-number="20"><span class="kw">add_dependencies</span>(app Argo)</a>
 <a class="sourceLine" id="cb5-21" data-line-number="21"><span class="kw">set</span>_target_properties(app PROPERTIES CXX_STANDARD 11) <span class="co">#Your project should be C++ &gt;= 11</span></a>
 <a class="sourceLine" id="cb5-22" data-line-number="22"><span class="kw">target_include_directories</span>(app <span class="ot">PRIVATE</span> <span class="dv">${</span>ARGO_ROOT<span class="dv">}</span>/single_include)</a></code></pre></div>
+<h2 id="requirements">Requirements</h2>
+<p>A modern C++11 compliant compiler.</p>
+<p>The library is tested on the following platforms:</p>
+<ul>
+<li>macOS 10.13 / Clang (Apple LLVM version 9.1.0)</li>
+<li>CentOS-7.5 / GCC-4.8.5</li>
+<li>Debian-8.11 / GCC-4.9.2</li>
+<li>Ubuntu-14.04 / GCC-4.8.4</li>
+<li>Ubuntu-16.04 / GCC-5.4.0</li>
+<li>Ubuntu-18.04 / GCC-7.3.0</li>
+<li>Ubuntu-18.10 / GCC-8.2.0</li>
+</ul>
+<p><strong>Note</strong> Automatic testing on Windows will be added shortly.</p>
 	    </div>
 	    	    <div class="col-md-3">
 	      <nav id="toc" data-spy="affix" data-offset-top="0">
@@ -148,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#installation">Installation</a><ul>
 <li><a href="#basic-integration">Basic integration</a></li>
 <li><a href="#cmake-integration">CMake integration</a></li>
+<li><a href="#requirements">Requirements</a></li>
 </ul></li>
 </ul>
 	      </nav>
